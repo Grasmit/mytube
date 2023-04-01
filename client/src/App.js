@@ -1,10 +1,18 @@
 import { dark } from "@mui/material/styles/createPalette.js";
 import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Menu from "./components/menu.jsx"
-import Navbar from "./components/navbar.jsx";
+import Menu from "./components/Menu.jsx"
+import Navbar from "./components/Navbar.jsx";
 import { darkTheme, lightTheme } from "./utils/Theme.js";
+
+import Home from "./pages/Home.jsx";
+import Video from "./pages/Video.jsx";
+import SignIn from "./pages/Singin.jsx";
+
+
+
 
 const Container = styled.div`
 
@@ -21,7 +29,10 @@ const Main = styled.div`
 
 const Wrapper = styled.div`
 
+  padding: 22px 96px;
+
 `
+
 
 function App() {
 
@@ -33,71 +44,28 @@ function App() {
 
     <ThemeProvider theme={darkMode?darkTheme:lightTheme}>
     <Container>
+      <BrowserRouter>
       <Menu darkMode={darkMode} setDarkMode={setDarkMode}/>
       <Main>
         <Navbar />
         <Wrapper>
-          <h1>test</h1>
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
+          
+        <Routes>
+          <Route path="/">
+            
+            <Route index element={<Home />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="video">
+              <Route path=":id" element={<Video />} />
+            </Route>
 
 
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
-
-          <h1>test</h1>
+          </Route>
+        </Routes>
 
         </Wrapper>
       </Main>
+      </BrowserRouter>
     </Container>
     </ThemeProvider>
 

@@ -1,5 +1,7 @@
 import React from "react"
 import styled from "styled-components"
+import {Link} from "react-router-dom"
+
 import TubeLogo from "../images/logo.png"
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -55,6 +57,10 @@ const Item = styled.div`
     cursor: pointer;
     padding: 5px 0px;
 
+    &:hover{
+        background-color: ${({theme})=> theme.soft}
+    }
+
 `
 
 const Hr = styled.hr`
@@ -90,10 +96,12 @@ const Menu = ({darkMode,setDarkMode}) => {
         <>
             <Container>
                 <Wrapper>
+                    <Link to="/" style={{textDecoration:"none", color:'inherit'}}>
                     <Logo>
                         <Img src={TubeLogo} />
                         MyTube
                     </Logo>
+                    </Link>
                     <Item>
                         <HomeIcon />
                         Home
@@ -116,10 +124,14 @@ const Menu = ({darkMode,setDarkMode}) => {
                         History
                     </Item>
                     <Hr />
+                    
                     <Login>
                         Sign in to like, comment and subscribe videos.
+                        <Link to="signin" style={{textDecoration:"none"}}>
                         <LoginButton> <AccountCircleOutlinedIcon /> SIGN IN </LoginButton>
+                        </Link>
                     </Login>
+                    
                     <Hr />
                     <Title>BEST OF MYTUBE</Title>
                     <Item>
@@ -160,7 +172,7 @@ const Menu = ({darkMode,setDarkMode}) => {
                         setDarkMode(!darkMode)
                         console.log(darkMode)}}>
                         <SettingsBrightnessOutlinedIcon />
-                        Light Mode
+                        {!darkMode?'Dark':'Light'} Mode
                     </Item>
                     <Item>
                         <HelpOutlineOutlinedIcon />
