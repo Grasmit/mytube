@@ -1,5 +1,6 @@
-import React from "react";
+import {React,useState,useEffect} from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
     display: flex;
@@ -19,10 +20,10 @@ const Details = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    color: ${({theme})=> theme.text};
+    color: ${({ theme }) => theme.text};
 
 `
-    
+
 const Name = styled.span`
     font-size:12px;
     font-weight:500;
@@ -31,7 +32,7 @@ const Date = styled.span`
 
     font-size:12px;
     font-weight: 400;
-    color: ${({theme})=> theme.textSoft};
+    color: ${({ theme }) => theme.textSoft};
     margin-left: 5px;
 
 `
@@ -41,15 +42,25 @@ const Text = styled.span`
 `
 
 
-const Comment = ()=>
-{
-    return(
+const Comment = ({comment}) => {
+
+    const [channel, setChannel] = useState({});
+
+    useEffect(() => {
+        const fetchComment = async () => {
+            const res = await axios.get(`/users/find/${comment.userId}`);
+            setChannel(res.data)
+        };
+        fetchComment();
+    }, [comment.userId]);
+
+    return (
 
         <Container>
             <Avatar></Avatar>
             <Details>
-                <Name>YourTube</Name>
-                <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestiae deleniti assumenda itaque vel. Quibusdam perferendis aperiam maxime quo minus inventore accusantium. Mollitia pariatur soluta magni dolor amet minus incidunt.</Text>
+                <Name>{channel.name}</Name>
+                <Text>{comment.desc}</Text>
             </Details>
         </Container>
     )

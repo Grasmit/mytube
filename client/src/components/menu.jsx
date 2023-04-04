@@ -20,6 +20,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     flex:1;
@@ -92,6 +93,8 @@ const Title = styled.h2`
 
 const Menu = ({darkMode,setDarkMode}) => {
 
+    const { currentUser } = useSelector((state) => state.user)
+
     return(
         <>
             <Container>
@@ -102,18 +105,24 @@ const Menu = ({darkMode,setDarkMode}) => {
                         MyTube
                     </Logo>
                     </Link>
+                    <Link to="/" style={{textDecoration:"none",color:"inherit"}}>
                     <Item>
                         <HomeIcon />
                         Home
                     </Item>
+                    </Link>
+                    <Link to="trend" style={{textDecoration:"none",color:"inherit"}}>
                     <Item>
                         <ExploreOutlinedIcon />
                         Explore
                     </Item>
+                    </Link>
+                    <Link to="subscription" style={{textDecoration:"none",color:"inherit"}}>
                     <Item>
                         <SubscriptionsOutlinedIcon />
                         Subscription
                     </Item>
+                    </Link>
                     <Hr />
                     <Item>
                         <LibraryMusicOutlinedIcon />
@@ -125,14 +134,16 @@ const Menu = ({darkMode,setDarkMode}) => {
                     </Item>
                     <Hr />
                     
-                    <Login>
+                   { !currentUser && 
+                   <>
+                   <Login>
                         Sign in to like, comment and subscribe videos.
                         <Link to="signin" style={{textDecoration:"none"}}>
                         <LoginButton> <AccountCircleOutlinedIcon /> SIGN IN </LoginButton>
                         </Link>
                     </Login>
-                    
                     <Hr />
+                    </>}
                     <Title>BEST OF MYTUBE</Title>
                     <Item>
                         <LibraryMusicOutlinedIcon />

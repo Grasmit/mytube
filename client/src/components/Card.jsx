@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
+import {format} from "timeago.js"
+
+import axios from "axios";
 
 const Container = styled.div`
 
@@ -56,24 +59,40 @@ const Info = styled.div`
 `
 
 
-const Card = ({type})=>
+const Card = ({type,video})=>
 {
+
+    const [channelName,setChannelName] = useState()
+
+    useEffect(()=>{
+
+        const getChannelName = async ()=>{
+
+         const channel = await axios.get(`/users/find/${video.userId}`)
+         //console.log(channel.data.name)
+         setChannelName(channel.data.name)
+        }
+
+        getChannelName()
+
+    },[video])
+
     return(
         <>
-        <Link to="video/test" style={{textDecoration:"none",color:'inherit'}}>
+        <Link to={`video/${video._id}`} style={{textDecoration:"none",color:'inherit'}}>
         <Container type={type}>
-            <Image src="https://www.fanpop.com/clubs/random/images/28065165/title/randomised-screencap" type={type} />
+            <Image src={video.imgUrl} />
             <Details>
                 <ChannelImage type={type} />
                 <Texts>
                     <Title>
-                        Test video
+                        {video.title}
                     </Title>
                     <ChannelName>
-                        Mytube
+                        {channelName}
                     </ChannelName>
                     <Info>
-                            660,908 views - 1 day ago
+                            {video.views} • {format(video.updatedAt)}
                     </Info>
                 </Texts>
             </Details>

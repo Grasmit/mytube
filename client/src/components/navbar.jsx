@@ -1,14 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
+
+import { useSelector } from "react-redux";
+
 
 const Container = styled.div`
     position: sticky;
     top: 0;
-    background-color: ${({theme})=> theme.bgLighter};
+    background-color: ${({ theme }) => theme.bgLighter};
     height: 56px;
 `
 
@@ -55,21 +59,54 @@ const LoginButton = styled.button`
     gap: 5px;
 `
 
+const User = styled.div`
+
+    display:flex;
+    align-items: center;
+    gap:10px;
+    font-weight:500;
+    color: ${({theme})=>theme.text}
+`
+
+const Avatar = styled.img`
+
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background-color:#999;
+`
+
 const Navbar = () => {
 
-    return(
+    const { currentUser } = useSelector((state) => state.user)
+
+    const [open,setOpen] = useState(false)
+
+
+    return (
         <>
-        <Container>
-            <Wrapper>
-                <Search>
-                    <Input />
-                    <SearchOutlinedIcon />
-                </Search>
-                <Link to="signin" style={{textDecoration:"none"}}>
-                <LoginButton> <AccountCircleOutlinedIcon /> SIGN IN </LoginButton>
-                </Link>
-            </Wrapper>
-        </Container>
+            <Container>
+                <Wrapper>
+                    <Search>
+                        <Input />
+                        <SearchOutlinedIcon />
+                    </Search>
+                    <Link to="signin" style={{ textDecoration: "none" }}>
+                        {currentUser ? (
+                            <User>
+                                <VideoCallOutlinedIcon onClick={()=>setOpen(true)} />
+                                <Avatar src={currentUser.img} />
+                                {currentUser.name}
+                            </User>
+                        ) : (
+                            <LoginButton>
+                                <AccountCircleOutlinedIcon />
+                                SIGN IN
+                            </LoginButton>
+                        )}
+                    </Link>
+                </Wrapper>
+            </Container>
         </>
     )
 

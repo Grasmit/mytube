@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Menu from "./components/Menu.jsx"
+import Menu from "./components/Menu.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { darkTheme, lightTheme } from "./utils/Theme.js";
 
@@ -39,9 +39,6 @@ function App() {
   const [darkMode,setDarkMode] = useState(false)
 
   return (
-
-    console.log(darkTheme),
-
     <ThemeProvider theme={darkMode?darkTheme:lightTheme}>
     <Container>
       <BrowserRouter>
@@ -53,7 +50,10 @@ function App() {
         <Routes>
           <Route path="/">
             
-            <Route index element={<Home />} />
+            <Route index element={<Home type="random"/>} />
+            <Route path="trend" element={<Home type="trend"/>} />
+            <Route path="subscription" element={<Home type="sub"/>} />
+
             <Route path="signin" element={<SignIn />} />
             <Route path="video">
               <Route path=":id" element={<Video />} />
