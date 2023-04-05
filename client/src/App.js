@@ -10,8 +10,7 @@ import { darkTheme, lightTheme } from "./utils/Theme.js";
 import Home from "./pages/Home.jsx";
 import Video from "./pages/Video.jsx";
 import SignIn from "./pages/Singin.jsx";
-
-
+import Search from "./pages/Search.jsx";
 
 
 const Container = styled.div`
@@ -55,6 +54,7 @@ function App() {
             <Route path="subscription" element={<Home type="sub"/>} />
 
             <Route path="signin" element={<SignIn />} />
+            <Route path="search" element={<Search />} />
             <Route path="video">
               <Route path=":id" element={<Video />} />
             </Route>
