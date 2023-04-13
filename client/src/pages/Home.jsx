@@ -19,7 +19,7 @@ const Home = ({ type }) => {
 
         const fetchVideo = async () => {
 
-            const videosRes = await axios.get(`/video/${type}`)
+            const videosRes = await axios.get(`${process.env.REACT_APP_BASE_URL}/video/${type}`)
 
             //console.log("before ----------> ", videos)
             setVideos(videosRes.data)

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios"
 import { useDispatch } from "react-redux";
-import {auth,provider} from "../firebase"
+import { auth, provider } from "../firebase"
 import { signInWithPopup } from "firebase/auth";
 
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
@@ -78,51 +78,51 @@ const Link = styled.div`
 
 const SignIn = () => {
 
-    const [userName,setUserName] = useState()
-    const [email,setEmail] = useState()
-    const [password,setPassword] = useState()
+    const [userName, setUserName] = useState()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
     const dispatch = useDispatch()
 
-    const handleGoogleSignin =async () => {
+    const handleGoogleSignin = async () => {
 
         dispatch(loginStart())
 
-        signInWithPopup(auth,provider).then((result)=>{
+        signInWithPopup(auth, provider).then((result) => {
             console.log(result)
-            axios.post("/auth/google",{
-            name:result.user.displayName,
-            email:result.user.email,
-            img:result.user.photoURL
-            }).then((result)=>{
+            axios.post(`${process.env.REACT_APP_BASE_URL}/auth/google`, {
+                name: result.user.displayName,
+                email: result.user.email,
+                img: result.user.photoURL
+            }).then((result) => {
                 dispatch(loginSuccess(result.data))
             })
-        }).catch((err)=>{
+        }).catch((err) => {
             console.error(err)
             dispatch(loginFailure())
         })
     }
 
-    const handleSignIn = async (e)=> {
+    const handleSignIn = async (e) => {
 
         e.preventDefault()
 
         dispatch(loginStart())
 
-       try{
-        const signInRes = await axios.post(`auth/signin`,{"name":userName,password})
+        try {
+            const signInRes = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/signin`, { "name": userName, password })
 
-        console.log(signInRes.data)
-        dispatch(loginSuccess(signInRes.data))
-       }
-       catch(err){
-        console.log(err)
-        dispatch(loginFailure())
-       }
+            console.log(signInRes.data)
+            dispatch(loginSuccess(signInRes.data))
+        }
+        catch (err) {
+            console.log(err)
+            dispatch(loginFailure())
+        }
     }
 
-    const handleSignUp = async ()=> {
+    const handleSignUp = async () => {
 
-        const signInRes = await axios.post("auth/signup",{"name":userName,email,password})
+        const signInRes = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/signup`, { "name": userName, email, password })
 
         console.log(signInRes.data)
 
@@ -134,27 +134,27 @@ const SignIn = () => {
                 <Wrapper>
                     <Title>Sign in</Title>
                     <SubTitle>to continue to MyTube</SubTitle>
-                    <Input placeholder="username" onChange={(e)=> setUserName(e.target.value)}/>
-                    <Input type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)}/>
+                    <Input placeholder="username" onChange={(e) => setUserName(e.target.value)} />
+                    <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
                     <Button onClick={handleSignIn}>Sign In</Button>
 
                     <Title>Or</Title>
                     <Button onClick={handleGoogleSignin}>SignIn with Google</Button>
                     <Title>Or</Title>
 
-                    <Input placeholder="username" onChange={(e)=> setUserName(e.target.value)} />
-                    <Input placeholder="e-mail" onChange={(e)=> setEmail(e.target.value)} />
-                    <Input type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)} />
+                    <Input placeholder="username" onChange={(e) => setUserName(e.target.value)} />
+                    <Input placeholder="e-mail" onChange={(e) => setEmail(e.target.value)} />
+                    <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
                     <Button onClick={handleSignUp}>Sign Up</Button>
                 </Wrapper>
                 <More>
-                        English(USA)
-                        <Links>
-                            <Link>Help</Link>
-                            <Link>Privacy</Link>
-                            <Link>Terms</Link>
-                        </Links>
-                    </More>
+                    English(USA)
+                    <Links>
+                        <Link>Help</Link>
+                        <Link>Privacy</Link>
+                        <Link>Terms</Link>
+                    </Links>
+                </More>
             </Container>
         </>
     )
