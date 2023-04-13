@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import TubeLogo from "../images/logo.png"
 
@@ -24,9 +24,9 @@ import { useSelector } from "react-redux";
 
 const Container = styled.div`
     flex:1;
-    background-color: ${({theme}) => theme.bgLighter};
+    background-color: ${({ theme }) => theme.bgLighter};
     height:100vh;   
-    color:${({theme})=> theme.text};
+    color:${({ theme }) => theme.text};
     font-size:10px;
     position: sticky;
     top: 0;
@@ -59,14 +59,14 @@ const Item = styled.div`
     padding: 5px 0px;
 
     &:hover{
-        background-color: ${({theme})=> theme.soft}
+        background-color: ${({ theme }) => theme.soft}
     }
 
 `
 
 const Hr = styled.hr`
     margin: 10px 0px;
-    border: 0.5px solid ${({theme})=> theme.soft};
+    border: 0.5px solid ${({ theme }) => theme.soft};
 `
 
 const Login = styled.div``
@@ -91,37 +91,37 @@ const Title = styled.h2`
     margin-bottom: 10px;
 `
 
-const Menu = ({darkMode,setDarkMode}) => {
+const Menu = ({ darkMode, setDarkMode }) => {
 
     const { currentUser } = useSelector((state) => state.user)
 
-    return(
+    return (
         <>
             <Container>
                 <Wrapper>
-                    <Link to="/" style={{textDecoration:"none", color:'inherit'}}>
-                    <Logo>
-                        <Img src={TubeLogo} />
-                        MyTube
-                    </Logo>
+                    <Link to="/" style={{ textDecoration: "none", color: 'inherit' }}>
+                        <Logo>
+                            <Img src={TubeLogo} />
+                            MyTube
+                        </Logo>
                     </Link>
-                    <Link to="/" style={{textDecoration:"none",color:"inherit"}}>
-                    <Item>
-                        <HomeIcon />
-                        Home
-                    </Item>
+                    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                        <Item>
+                            <HomeIcon />
+                            Home
+                        </Item>
                     </Link>
-                    <Link to="trend" style={{textDecoration:"none",color:"inherit"}}>
-                    <Item>
-                        <ExploreOutlinedIcon />
-                        Explore
-                    </Item>
+                    <Link to="trend" style={{ textDecoration: "none", color: "inherit" }}>
+                        <Item>
+                            <ExploreOutlinedIcon />
+                            Explore
+                        </Item>
                     </Link>
-                    <Link to="subscription" style={{textDecoration:"none",color:"inherit"}}>
-                    <Item>
-                        <SubscriptionsOutlinedIcon />
-                        Subscription
-                    </Item>
+                    <Link to="subscription" style={{ textDecoration: "none", color: "inherit" }}>
+                        <Item>
+                            <SubscriptionsOutlinedIcon />
+                            Subscription
+                        </Item>
                     </Link>
                     <Hr />
                     <Item>
@@ -133,17 +133,17 @@ const Menu = ({darkMode,setDarkMode}) => {
                         History
                     </Item>
                     <Hr />
-                    
-                   { !currentUser && 
-                   <>
-                   <Login>
-                        Sign in to like, comment and subscribe videos.
-                        <Link to="signin" style={{textDecoration:"none"}}>
-                        <LoginButton> <AccountCircleOutlinedIcon /> SIGN IN </LoginButton>
-                        </Link>
-                    </Login>
-                    <Hr />
-                    </>}
+
+                    {!currentUser &&
+                        <>
+                            <Login>
+                                Log in to like, comment and subscribe videos.
+                                <Link to="signin" style={{ textDecoration: "none" }}>
+                                    <LoginButton> <AccountCircleOutlinedIcon /> SIGN IN </LoginButton>
+                                </Link>
+                            </Login>
+                            <Hr />
+                        </>}
                     <Title>BEST OF MYTUBE</Title>
                     <Item>
                         <LibraryMusicOutlinedIcon />
@@ -178,18 +178,19 @@ const Menu = ({darkMode,setDarkMode}) => {
                         <FlagOutlinedIcon />
                         Report
                     </Item>
-                    <Item onClick={()=> 
-                        {console.log("theme button clicked",darkMode)
+                    <Item onClick={() => {
+                        console.log("theme button clicked", darkMode)
                         setDarkMode(!darkMode)
-                        console.log(darkMode)}}>
+                        console.log(darkMode)
+                    }}>
                         <SettingsBrightnessOutlinedIcon />
-                        {!darkMode?'Dark':'Light'} Mode
+                        {!darkMode ? 'Dark' : 'Light'} Mode
                     </Item>
                     <Item>
                         <HelpOutlineOutlinedIcon />
                         Help
                     </Item>
-                    
+
 
                 </Wrapper>
             </Container>
